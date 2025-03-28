@@ -1,0 +1,25 @@
+{
+  "name": "pr-comment-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoopinheiro/pr-comment-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunoopinheiro/pr-comment-bot/issues"
+  },
+  "homepage": "https://github.com/brunoopinheiro/pr-comment-bot#readme",
+  "description": "",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "fs": "^0.0.1-security",
+    "xml2js": "^0.6.2"
+  }
+}
