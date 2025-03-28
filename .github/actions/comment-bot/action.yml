@@ -1,0 +1,15 @@
+name: "PR Comment Bot"
+description: "Posts a markdown table as a comment on a pull request"
+inputs:
+  token:
+    description: "Github Token"
+    required: true
+  pr_number:
+    description: "Pull request number"
+    required: true
+  results:
+    description: "JSON data to format into a markdown table"
+    required: true
+runs:
+  using: "node16"
+  main: "index.js"
