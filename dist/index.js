@@ -38456,7 +38456,7 @@ async function run() {
   try {
     const token = core.getInput("token");
     const prNumber = core.getInput("pr_number");
-    const resultsPath = core.getInput("pytest_results");
+    const resultsPath = core.getInput("results");
 
     const xmlData = fs.readFileSync(resultsPath, "utf-8");
     const parser = new xml2js.Parser();
