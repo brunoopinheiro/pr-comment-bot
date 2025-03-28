@@ -15,11 +15,28 @@ async function run() {
 
     const testCases = results.testsuites.testsuite[0].testcase;
     let markdownTable = `| Test | Status |\n|------|--------|\n`;
-    results.forEach(test => {
+    let failedTests = [];
+    
+    testCases.forEach(test => {
       const testName = test.$.name;
-      const status = test.failure ? "❌" : "✅";
-      markdownTable += `| ${test.name} | ${test.status} | \n`;
+      if (test.failure) {
+        markdownTable += `| ${testName} | ❌ | \n`;
+        failedTests.push({ name: testName, message: test.failure[0]._ });
+      } else {
+        markdownTable += `| ${testName} | ✅ | \n`;
+      }
     });
+
+    let failureDetails = "";
+    if (failedTests.length > 0) {
+      failureDetails = "\n<details>\n <summary>❌ Failed Tests (Click to Expand)</summary>\n\n";
+      failedTests.forEach(test => {
+        failureDetails += `**${test.name}**\n\`\`\`\n${test.message.trim()}\n\`\`\`\n\n`;
+      });
+      failureDetails += "</details>\n";
+    }
+
+    const commentBody = `### Pytest Results 🧪\n\n${markdownTable}${failureDetails}`;
     
     const octokit = github.getOctokit(token);
     const { context } = github;
@@ -27,7 +44,7 @@ async function run() {
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: prNumber,
-      body: `### Pytest Results 🧪\n${markdownTable}`
+      body: commentBody
     });
 
     console.log("Comment created successfully");
